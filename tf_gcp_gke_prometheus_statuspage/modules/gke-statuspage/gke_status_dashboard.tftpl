@@ -1,9 +1,6 @@
 # GKE statuspage-style dashboard.
-# Layout:
-# - Mosaic with 12 columns.
-# - Each CUJ gets a vertical band (height ~30).
-# - CUJ header at top of band.
-# - Services for that CUJ as big 8x8 tiles stacked below the header.
+# One dashboard per environment (env_name, env_ns, env_cluster).
+# CUJs are vertical bands; each CUJ has a header + 8x8 tiles for workloads.
 
 ${jsonencode({
   displayName = "GKE Service Status - ${env_cluster} - ${env_name}"
@@ -27,48 +24,59 @@ ${jsonencode({
   mosaicLayout = {
     columns = 12
 
+    # tiles is a flat list of:
+    #   - CUJ header (1 tile)
+    #   - CUJ service tiles (N tiles)
     tiles = flatten([
-      for cuj_index, cuj_id in keys(cuj_workloads) : [
-        {
-          xPos   = 0
-          yPos   = cuj_index * 30
-          width  = 12
-          height = 2
-          widget = {
-            title = "CUJ: ${cuj_id} - ${cuj_workloads[cuj_id].name} (${env_name})"
-            text = {
-              format  = "MARKDOWN"
-              content = "### ${cuj_id} - ${cuj_workloads[cuj_id].name} (${env_name})\nNamespace: `${env_ns}`\nCluster: `${env_cluster}`\nStatus of workloads in this critical user journey."
+      for cuj_index, cuj_id in keys(cuj_workloads) : concat(
+        # --- list 1: header for this CUJ ---
+        [
+          {
+            xPos   = 0
+            yPos   = cuj_index * 30
+            width  = 12
+            height = 2
+            widget = {
+              title = "CUJ: ${cuj_id} - ${cuj_workloads[cuj_id].name} (${env_name})"
+              text = {
+                format  = "MARKDOWN"
+                content = "### ${cuj_id} - ${cuj_workloads[cuj_id].name} (${env_name})\nNamespace: `${env_ns}`\nCluster: `${env_cluster}`\nStatus of workloads in this critical user journey."
+              }
             }
           }
-        },
-        for svc_index, svc in cuj_workloads[cuj_id].workloads : {
-          xPos   = 2
-          yPos   = cuj_index * 30 + 2 + svc_index * 8
-          width  = 8
-          height = 8
-          widget = {
-            title = "Service: ${svc} (${cuj_id} ${cuj_workloads[cuj_id].name}, env: ${env_name})"
-            scorecard = {
-              timeSeriesQuery = {
-                prometheusQuery = "min_over_time(up{job=\"kubernetes-pods\", cluster=\"${env_cluster}\", namespace=\"${env_ns}\", workload=\"${svc}\"}[5m])"
-              }
-              gaugeView = {
-                lowerBound = 0
-                upperBound = 1
-              }
-              thresholds = [
-                {
-                  label     = "Down"
-                  value     = 0.5
-                  color     = "RED"
-                  direction = "BELOW"
+        ],
+
+        # --- list 2: all service tiles under this CUJ ---
+        [
+          for svc_index, svc in cuj_workloads[cuj_id].workloads : {
+            xPos   = 2
+            yPos   = cuj_index * 30 + 2 + svc_index * 8
+            width  = 8
+            height = 8
+
+            widget = {
+              title = "Service: ${svc} (${cuj_id} ${cuj_workloads[cuj_id].name}, env: ${env_name})"
+              scorecard = {
+                timeSeriesQuery = {
+                  prometheusQuery = "min_over_time(up{job=\"kubernetes-pods\", cluster=\"${env_cluster}\", namespace=\"${env_ns}\", workload=\"${svc}\"}[5m])"
                 }
-              ]
+                gaugeView = {
+                  lowerBound = 0
+                  upperBound = 1
+                }
+                thresholds = [
+                  {
+                    label     = "Down"
+                    value     = 0.5
+                    color     = "RED"
+                    direction = "BELOW"
+                  }
+                ]
+              }
             }
           }
-        }
-      ]
+        ]
+      )
     ])
   }
 })}
