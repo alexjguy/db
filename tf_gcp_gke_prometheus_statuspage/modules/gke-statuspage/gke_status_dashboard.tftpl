@@ -1,6 +1,9 @@
-# GKE statuspage-style dashboard.
-# One dashboard per environment (env_name, env_ns, env_cluster).
-# CUJs are vertical bands; each CUJ has a header + 8x8 tiles for workloads.
+# GKE statuspage-style dashboard
+# Inputs (from templatefile):
+#   env_name      - environment id (e.g. "ft1")
+#   env_ns        - namespace (e.g. "x-ft1")
+#   env_cluster   - cluster label (e.g. "db-cruise-cluster-enc")
+#   cuj_workloads - map(cuj_id => { name = string, workloads = list(string) })
 
 ${jsonencode({
   displayName = "GKE Service Status - ${env_cluster} - ${env_name}"
@@ -24,16 +27,26 @@ ${jsonencode({
   mosaicLayout = {
     columns = 12
 
-    # tiles is a flat list of:
-    #   - CUJ header (1 tile)
-    #   - CUJ service tiles (N tiles)
+    # tiles: for each CUJ, create:
+    #   - one header tile
+    #   - many 8x8 service tiles
+    #
+    # We avoid overlaps by computing a dynamic vertical offset for each CUJ:
+    #   cuj_height(cuj) = 2 + len(workloads)*8
+    #   offset(cuj_idx) = sum( height of all CUJs with index < cuj_idx )
     tiles = flatten([
       for cuj_index, cuj_id in keys(cuj_workloads) : concat(
-        # --- list 1: header for this CUJ ---
+
+        # -------- CUJ HEADER TILE (1 per CUJ) --------
         [
           {
             xPos   = 0
-            yPos   = cuj_index * 30
+            # vertical offset for this CUJ
+            yPos   = sum([
+              for prior_index, prior_id in keys(cuj_workloads) :
+              (2 + length(cuj_workloads[prior_id].workloads) * 8)
+              if prior_index < cuj_index
+            ])
             width  = 12
             height = 2
             widget = {
@@ -46,11 +59,22 @@ ${jsonencode({
           }
         ],
 
-        # --- list 2: all service tiles under this CUJ ---
+        # -------- SERVICE TILES (8x8, one per workload) --------
         [
           for svc_index, svc in cuj_workloads[cuj_id].workloads : {
-            xPos   = 2
-            yPos   = cuj_index * 30 + 2 + svc_index * 8
+            xPos = 2
+            yPos = (
+              # same base offset as header
+              sum([
+                for prior_index, prior_id in keys(cuj_workloads) :
+                (2 + length(cuj_workloads[prior_id].workloads) * 8)
+                if prior_index < cuj_index
+              ])
+              # + header height
+              + 2
+              # + per-service spacing
+              + svc_index * 8
+            )
             width  = 8
             height = 8
 
