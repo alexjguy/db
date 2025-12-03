@@ -1,15 +1,5 @@
 variable "project_id" {
-  description = "GCP project where the dashboard lives"
-  type        = string
-}
-
-variable "env_name" {
-  description = "Environment name used in metric.type (ft1, sit1, etc.)"
-  type        = string
-}
-
-variable "namespace" {
-  description = "Kubernetes namespace of the service"
+  description = "GCP project where the dashboards live"
   type        = string
 }
 
@@ -22,6 +12,15 @@ variable "alignment_period" {
   description = "Alignment period for charts (e.g. 300s for 5 minutes)"
   type        = string
   default     = "300s"
+}
+
+variable "environments" {
+  description = "Map of environment name to config."
+
+  type = map(object({
+    namespace      = string
+    alerts_enabled = bool
+  }))
 }
 
 variable "endpoints" {

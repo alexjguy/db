@@ -2,9 +2,9 @@ module "scorpio_compliance_dashboard" {
   source = "./modules/istio-compliance-dashboard"
 
   project_id   = var.project_id
-  env_name     = "siti"                    # or ft1 / sit1 / uat / ...
-  namespace    = "x-sit1"
   service_name = "scorpio-cm-request-proxy"
+
+  environments = var.x_environments
 
   endpoints = [
     {
