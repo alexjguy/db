@@ -1,22 +1,27 @@
 variable "project_id" {
-  description = "GCP project where the dashboards live"
+  description = "GCP project where the dashboards are created."
   type        = string
 }
 
 variable "service_name" {
-  description = "Istio canonical service name (destination_canonical_service)"
+  description = "Istio destination_canonical_service name for which to build dashboards."
   type        = string
 }
 
 variable "alignment_period" {
-  description = "Alignment period for charts (e.g. 300s for 5 minutes)"
+  description = "Alignment period used for aggregating request counts (e.g. 300s)."
   type        = string
   default     = "300s"
 }
 
-variable "environments" {
-  description = "Map of environment name to config."
+variable "request_metric_suffix" {
+  description = "Suffix of the log-based request metric (e.g. istio-requests-total or istio-availability)."
+  type        = string
+  default     = "istio-requests-total"
+}
 
+variable "environments" {
+  description = "Map of environment name to namespace and alerts_enabled flag."
   type = map(object({
     namespace      = string
     alerts_enabled = bool
@@ -24,16 +29,7 @@ variable "environments" {
 }
 
 variable "endpoints" {
-  description = <<EOT
-List of endpoints to graph.
-
-Each element:
-- name       : short label for the widget title
-- method     : HTTP method (GET/POST/PUT/OPTIONS/...)
-- path       : exact http_path label to match (empty string if using path_regex)
-- path_regex : regex for http_path (empty string if using exact path)
-EOT
-
+  description = "List of endpoints with method and path/path_regex to graph in the dashboard."
   type = list(object({
     name       = string
     method     = string

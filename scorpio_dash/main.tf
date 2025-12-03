@@ -10,7 +10,7 @@ locals {
   env_common_filters = {
     for env_name, env in local.active_environments :
     env_name => [
-      "metric.type=\"logging.googleapis.com/user/${env_name}_istio-requests-total_${var.service_name}\"",
+      "metric.type=\"logging.googleapis.com/user/${env_name}_${var.request_metric_suffix}_${var.service_name}\"",
       "resource.type=\"k8s_container\"",
       "resource.labels.namespace_name=\"${env.namespace}\"",
       "metric.label.destination_canonical_service=\"${var.service_name}\"",
@@ -27,73 +27,85 @@ locals {
         xyChart = {
           dataSets = [
 
-            # Total
+            #########################################
+            # Total requests
+            #########################################
             {
               legendTemplate = "Total"
               plotType       = "LINE"
 
-              timeSeriesFilter = {
-                filter = join(" AND ", concat(
-                  local.env_common_filters[env_name],
-                  [
-                    "metric.label.http_method=\"${ep.method}\"",
-                    ep.path_regex != "" ?
-                      "metric.label.http_path=~\"${ep.path_regex}\"" :
-                      "metric.label.http_path=\"${ep.path}\"",
-                  ]
-                ))
+              timeSeriesQuery = {
+                timeSeriesFilter = {
+                  filter = join(" AND ", concat(
+                    local.env_common_filters[env_name],
+                    [
+                      "metric.label.http_method=\"${ep.method}\"",
+                      ep.path_regex != "" ?
+                        "metric.label.http_path=~\"${ep.path_regex}\"" :
+                        "metric.label.http_path=\"${ep.path}\"",
+                    ]
+                  ))
 
-                aggregation = {
-                  alignmentPeriod  = var.alignment_period
-                  perSeriesAligner = "ALIGN_DELTA"
+                  aggregation = {
+                    alignmentPeriod  = var.alignment_period
+                    perSeriesAligner = "ALIGN_DELTA"
+                  }
                 }
               }
             },
 
-            # 2xx
+            #########################################
+            # 2xx (good)
+            #########################################
             {
               legendTemplate = "2xx"
               plotType       = "LINE"
 
-              timeSeriesFilter = {
-                filter = join(" AND ", concat(
-                  local.env_common_filters[env_name],
-                  [
-                    "metric.label.http_method=\"${ep.method}\"",
-                    ep.path_regex != "" ?
-                      "metric.label.http_path=~\"${ep.path_regex}\"" :
-                      "metric.label.http_path=\"${ep.path}\"",
-                    "metric.label.status_class=\"2\"",
-                  ]
-                ))
+              timeSeriesQuery = {
+                timeSeriesFilter = {
+                  filter = join(" AND ", concat(
+                    local.env_common_filters[env_name],
+                    [
+                      "metric.label.http_method=\"${ep.method}\"",
+                      ep.path_regex != "" ?
+                        "metric.label.http_path=~\"${ep.path_regex}\"" :
+                        "metric.label.http_path=\"${ep.path}\"",
+                      "metric.label.status_class=\"2\"",
+                    ]
+                  ))
 
-                aggregation = {
-                  alignmentPeriod  = var.alignment_period
-                  perSeriesAligner = "ALIGN_DELTA"
+                  aggregation = {
+                    alignmentPeriod  = var.alignment_period
+                    perSeriesAligner = "ALIGN_DELTA"
+                  }
                 }
               }
             },
 
-            # non-2xx
+            #########################################
+            # non-2xx (other)
+            #########################################
             {
               legendTemplate = "non-2xx"
               plotType       = "LINE"
 
-              timeSeriesFilter = {
-                filter = join(" AND ", concat(
-                  local.env_common_filters[env_name],
-                  [
-                    "metric.label.http_method=\"${ep.method}\"",
-                    ep.path_regex != "" ?
-                      "metric.label.http_path=~\"${ep.path_regex}\"" :
-                      "metric.label.http_path=\"${ep.path}\"",
-                    "metric.label.status_class!=\"2\"",
-                  ]
-                ))
+              timeSeriesQuery = {
+                timeSeriesFilter = {
+                  filter = join(" AND ", concat(
+                    local.env_common_filters[env_name],
+                    [
+                      "metric.label.http_method=\"${ep.method}\"",
+                      ep.path_regex != "" ?
+                        "metric.label.http_path=~\"${ep.path_regex}\"" :
+                        "metric.label.http_path=\"${ep.path}\"",
+                      "metric.label.status_class!=\"2\"",
+                    ]
+                  ))
 
-                aggregation = {
-                  alignmentPeriod  = var.alignment_period
-                  perSeriesAligner = "ALIGN_DELTA"
+                  aggregation = {
+                    alignmentPeriod  = var.alignment_period
+                    perSeriesAligner = "ALIGN_DELTA"
+                  }
                 }
               }
             },
