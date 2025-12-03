@@ -1,14 +1,10 @@
 module "scorpio_compliance_dashboard" {
   source = "./modules/istio-compliance-dashboard"
 
-  project_id   = var.project_id
-  service_name = "scorpio-cm-request-proxy"
-
-  # Use the same map you showed in the screenshot
-  environments = var.x_environments
-
-  # If your metric is named <env>_istio-availability_<service_name>, override suffix:
-  # request_metric_suffix = "istio-availability"
+  project_id           = var.project_id
+  service_name         = "scorpio-cm-request-proxy"
+  environments         = var.x_environments
+  request_metric_suffix = "istio-availability" # or "istio-requests-total" if you rename
 
   endpoints = [
     {

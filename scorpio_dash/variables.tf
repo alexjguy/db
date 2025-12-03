@@ -17,7 +17,7 @@ variable "alignment_period" {
 variable "request_metric_suffix" {
   description = "Suffix of the log-based request metric (e.g. istio-requests-total or istio-availability)."
   type        = string
-  default     = "istio-requests-total"
+  default     = "istio-availability"
 }
 
 variable "environments" {

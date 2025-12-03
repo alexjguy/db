@@ -41,7 +41,7 @@ locals {
                     [
                       "metric.label.http_method=\"${ep.method}\"",
                       ep.path_regex != "" ?
-                        "metric.label.http_path=~\"${ep.path_regex}\"" :
+                        "metric.label.http_path=monitoring.regex.full_match(\"${ep.path_regex}\")" :
                         "metric.label.http_path=\"${ep.path}\"",
                     ]
                   ))
@@ -68,7 +68,7 @@ locals {
                     [
                       "metric.label.http_method=\"${ep.method}\"",
                       ep.path_regex != "" ?
-                        "metric.label.http_path=~\"${ep.path_regex}\"" :
+                        "metric.label.http_path=monitoring.regex.full_match(\"${ep.path_regex}\")" :
                         "metric.label.http_path=\"${ep.path}\"",
                       "metric.label.status_class=\"2\"",
                     ]
@@ -96,7 +96,7 @@ locals {
                     [
                       "metric.label.http_method=\"${ep.method}\"",
                       ep.path_regex != "" ?
-                        "metric.label.http_path=~\"${ep.path_regex}\"" :
+                        "metric.label.http_path=monitoring.regex.full_match(\"${ep.path_regex}\")" :
                         "metric.label.http_path=\"${ep.path}\"",
                       "metric.label.status_class!=\"2\"",
                     ]
