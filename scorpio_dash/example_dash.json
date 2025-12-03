@@ -1,0 +1,258 @@
+{
+  "displayName": "Scorpio compliance - scorpio-cm-request-proxy - ft1",
+  "gridLayout": {
+    "columns": 2,
+    "widgets": [
+      {
+        "title": "ft1 - POST /integration/scorpio - total vs 2xx vs other",
+        "xyChart": {
+          "dataSets": [
+            {
+              "legendTemplate": "Total",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"POST\" AND metric.label.http_path=\"/integration/scorpio\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"POST\" AND metric.label.http_path=\"/integration/scorpio\" AND metric.label.status_class=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "non-2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"POST\" AND metric.label.http_path=\"/integration/scorpio\" AND metric.label.status_class!=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            }
+          ],
+          "yAxis": {
+            "label": "Requests per 5 min",
+            "scale": "LINEAR"
+          }
+        }
+      },
+      {
+        "title": "ft1 - PUT /integration/scorpio - total vs 2xx vs other",
+        "xyChart": {
+          "dataSets": [
+            {
+              "legendTemplate": "Total",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"PUT\" AND metric.label.http_path=\"/integration/scorpio\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"PUT\" AND metric.label.http_path=\"/integration/scorpio\" AND metric.label.status_class=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "non-2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"PUT\" AND metric.label.http_path=\"/integration/scorpio\" AND metric.label.status_class!=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            }
+          ],
+          "yAxis": {
+            "label": "Requests per 5 min",
+            "scale": "LINEAR"
+          }
+        }
+      },
+      {
+        "title": "ft1 - GET /integration/scorpio/{dealId} - total vs 2xx vs other",
+        "xyChart": {
+          "dataSets": [
+            {
+              "legendTemplate": "Total",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"GET\" AND metric.label.http_path=~\"^/integration/scorpio/[^/]+$\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"GET\" AND metric.label.http_path=~\"^/integration/scorpio/[^/]+$\" AND metric.label.status_class=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "non-2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"GET\" AND metric.label.http_path=~\"^/integration/scorpio/[^/]+$\" AND metric.label.status_class!=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            }
+          ],
+          "yAxis": {
+            "label": "Requests per 5 min",
+            "scale": "LINEAR"
+          }
+        }
+      },
+      {
+        "title": "ft1 - POST /integration/scorpio/confirmation - total vs 2xx vs other",
+        "xyChart": {
+          "dataSets": [
+            {
+              "legendTemplate": "Total",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"POST\" AND metric.label.http_path=\"/integration/scorpio/confirmation\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"POST\" AND metric.label.http_path=\"/integration/scorpio/confirmation\" AND metric.label.status_class=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "non-2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"POST\" AND metric.label.http_path=\"/integration/scorpio/confirmation\" AND metric.label.status_class!=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            }
+          ],
+          "yAxis": {
+            "label": "Requests per 5 min",
+            "scale": "LINEAR"
+          }
+        }
+      },
+      {
+        "title": "ft1 - OPTIONS /integration/scorpio* - total vs 2xx vs other",
+        "xyChart": {
+          "dataSets": [
+            {
+              "legendTemplate": "Total",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"OPTIONS\" AND metric.label.http_path=~\"^/integration/scorpio(/confirmation|/[^/]+)?$\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"OPTIONS\" AND metric.label.http_path=~\"^/integration/scorpio(/confirmation|/[^/]+)?$\" AND metric.label.status_class=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            },
+            {
+              "legendTemplate": "non-2xx",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"OPTIONS\" AND metric.label.http_path=~\"^/integration/scorpio(/confirmation|/[^/]+)?$\" AND metric.label.status_class!=\"2\"",
+                  "aggregation": {
+                    "alignmentPeriod": "300s",
+                    "perSeriesAligner": "ALIGN_DELTA"
+                  }
+                }
+              }
+            }
+          ],
+          "yAxis": {
+            "label": "Requests per 5 min",
+            "scale": "LINEAR"
+          }
+        }
+      }
+    ]
+  }
+}
