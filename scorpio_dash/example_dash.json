@@ -112,7 +112,7 @@
               "plotType": "LINE",
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"GET\" AND metric.label.http_path=~\"^/integration/scorpio/[^/]+$\"",
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"GET\" AND metric.label.http_path=monitoring.regex.full_match(\"^/integration/scorpio/[^/]+$\")",
                   "aggregation": {
                     "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_DELTA"
@@ -125,7 +125,7 @@
               "plotType": "LINE",
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"GET\" AND metric.label.http_path=~\"^/integration/scorpio/[^/]+$\" AND metric.label.status_class=\"2\"",
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"GET\" AND metric.label.http_path=monitoring.regex.full_match(\"^/integration/scorpio/[^/]+$\") AND metric.label.status_class=\"2\"",
                   "aggregation": {
                     "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_DELTA"
@@ -138,7 +138,7 @@
               "plotType": "LINE",
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"GET\" AND metric.label.http_path=~\"^/integration/scorpio/[^/]+$\" AND metric.label.status_class!=\"2\"",
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"GET\" AND metric.label.http_path=monitoring.regex.full_match(\"^/integration/scorpio/[^/]+$\") AND metric.label.status_class!=\"2\"",
                   "aggregation": {
                     "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_DELTA"
@@ -212,7 +212,7 @@
               "plotType": "LINE",
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"OPTIONS\" AND metric.label.http_path=~\"^/integration/scorpio(/confirmation|/[^/]+)?$\"",
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"OPTIONS\" AND metric.label.http_path=monitoring.regex.full_match(\"^/integration/scorpio(/confirmation|/[^/]+)?$\")",
                   "aggregation": {
                     "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_DELTA"
@@ -225,7 +225,7 @@
               "plotType": "LINE",
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"OPTIONS\" AND metric.label.http_path=~\"^/integration/scorpio(/confirmation|/[^/]+)?$\" AND metric.label.status_class=\"2\"",
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"OPTIONS\" AND metric.label.http_path=monitoring.regex.full_match(\"^/integration/scorpio(/confirmation|/[^/]+)?$\") AND metric.label.status_class=\"2\"",
                   "aggregation": {
                     "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_DELTA"
@@ -238,7 +238,7 @@
               "plotType": "LINE",
               "timeSeriesQuery": {
                 "timeSeriesFilter": {
-                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"OPTIONS\" AND metric.label.http_path=~\"^/integration/scorpio(/confirmation|/[^/]+)?$\" AND metric.label.status_class!=\"2\"",
+                  "filter": "metric.type=\"logging.googleapis.com/user/ft1_istio-availability_scorpio-cm-request-proxy\" AND resource.type=\"k8s_container\" AND resource.labels.namespace_name=\"x-ft1\" AND metric.label.destination_canonical_service=\"scorpio-cm-request-proxy\" AND metric.label.http_method=\"OPTIONS\" AND metric.label.http_path=monitoring.regex.full_match(\"^/integration/scorpio(/confirmation|/[^/]+)?$\") AND metric.label.status_class!=\"2\"",
                   "aggregation": {
                     "alignmentPeriod": "300s",
                     "perSeriesAligner": "ALIGN_DELTA"
